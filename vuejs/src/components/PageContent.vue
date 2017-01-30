@@ -3,10 +3,6 @@
     <div v-if="!isSearching">
       <md-theme md-name="default">
         <md-whiteframe md-tag="md-toolbar" md-elevation="2">
-          <md-button class="md-icon-button">
-            <md-icon>menu</md-icon>
-          </md-button>
-
           <h2 class="md-title" style="flex: 1">{{ pageTitle }}</h2>
 
           <md-button class="md-icon-button"i v-on:click="openSearch()">

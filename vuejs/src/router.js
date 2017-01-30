@@ -5,6 +5,7 @@ Vue.use(Router)
 
 import Vinyles from './pages/Vinyles.vue'
 import Vinyle from './pages/Vinyle.vue'
+import Wishlist from './pages/Wishlist.vue'
 
 export default new Router({
   mode: 'history',
@@ -18,6 +19,11 @@ export default new Router({
       children: [
         { path: ':id', name: 'vinyle', component: Vinyle  }
       ]
-    }
+    },
+    {
+      path: '/wishlist',
+      name: 'wishlist',
+      component: Wishlist,
+    },
   ]
 })
