@@ -3,10 +3,10 @@
     <md-sidenav class="main-sidebar md-left md-fixed">
       <md-list>
         <md-list-item>
-          <router-link to="/vinyl-collection">Vinyl Collection</router-link>
+          <router-link to="/vinyl-collection"><md-icon>album</md-icon><span>Vinyl Collection</span></router-link>
         </md-list-item>
         <md-list-item>
-          <router-link to="/wishlist">Wishlist</router-link>
+          <router-link to="/wishlist"><md-icon>list</md-icon><span>Wishlist</span></router-link>
         </md-list-item>
       </md-list>
     </md-sidenav>
