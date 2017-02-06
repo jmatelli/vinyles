@@ -1,0 +1,9 @@
+{
+  "name": "vinyles",
+  "version": "0.1.0",
+  "description": "This is a sandbox project, I use it to test all the latest version of the different client side frameworks.",
+  "main": "index.js",
+  "repository": "git@github.com:tellijo/vinyles.git",
+  "author": "Joël Matelli <joel.matelli@tellijo.fr>",
+  "license": "MIT"
+}

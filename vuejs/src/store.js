@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     isSearching: false,
     vinyles: JSON.parse(window.localStorage.getItem(VINYLES_STORAGE_KEY) || '[]'),
     wishlist: JSON.parse(window.localStorage.getItem(WISHLIST_STORAGE_KEY) || '[]'),
+    searchResult: [],
   },
 
   mutations: {
@@ -26,6 +28,7 @@ export default new Vuex.Store({
 
     closeSearch(state) {
       state.isSearching = false
+      state.searchResult = []
     },
 
     toggleSearch(state) {
@@ -33,7 +36,10 @@ export default new Vuex.Store({
     },
 
     addOwnedVinyle (state, vinyle) {
-      state.vinyles.push(vinyle)
+      let storage = JSON.parse(window.localStorage.getItem(VINYLES_STORAGE_KEY))
+      if (!_.find(storage, { id: vinyle.id })) {
+        state.vinyles.push(vinyle)
+      }
     },
 
     deleteOwnedVinyle (state, vinyle) {
@@ -41,7 +47,10 @@ export default new Vuex.Store({
     },
 
     addWishedVinyle (state, vinyle) {
-      state.wishlist.push(vinyle)
+      let storage = JSON.parse(window.localStorage.getItem(WISHLIST_STORAGE_KEY))
+      if (!_.find(storage, { id: vinyle.id })) {
+        state.wishlist.push(vinyle)
+      }
     },
 
     deleteWishedVinyle (state, vinyle) {

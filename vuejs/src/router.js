@@ -6,6 +6,7 @@ Vue.use(Router)
 import Vinyles from './pages/Vinyles.vue'
 import Vinyle from './pages/Vinyle.vue'
 import Wishlist from './pages/Wishlist.vue'
+import Search from './pages/Search.vue'
 
 export default new Router({
   mode: 'history',
@@ -24,6 +25,11 @@ export default new Router({
       path: '/wishlist',
       name: 'wishlist',
       component: Wishlist,
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: Search,
     },
   ]
 })

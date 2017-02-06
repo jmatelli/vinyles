@@ -49,7 +49,6 @@
     data() {
       return {
         searchRequest: '',
-        searchResult: [],
       }
     },
 
@@ -62,15 +61,17 @@
     computed: {
       isSearching() {
         return this.$store.state.isSearching
-      }
+      },
     },
 
     methods: {
       openSearch() {
+        this.$router.push('search')
         this.$store.commit('openSearch')
       },
 
       closeSearch() {
+        this.$router.go(-1)
         this.$store.commit('closeSearch')
       },
 
@@ -81,13 +82,15 @@
       searchVinyles: _.debounce(function() {
         if (this.searchRequest !== '') {
           resource
-            .get(requestBuilder('/database/search?query=' + this.searchRequest))
+            .get(requestBuilder('/database/search?type=release&format=vinyl&release_title=' + this.searchRequest))
             .then(res => {
-              this.searchResult = res.data.results
+              this.$store.state.searchResult = res.data.results
             })
             .catch(err => {
               throw new Error('Couldn\'t find what you\'re looking for')
             })
+        } else {
+          this.$store.state.searchResult = []
         }
       }, 500),
     },

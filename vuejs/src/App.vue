@@ -1,14 +1,22 @@
 <template>
   <div id="app">
     <md-sidenav class="main-sidebar md-left md-fixed">
-      <md-list>
-        <md-list-item>
-          <router-link to="/vinyl-collection"><md-icon>album</md-icon><span>Vinyl Collection</span></router-link>
-        </md-list-item>
-        <md-list-item>
-          <router-link to="/wishlist"><md-icon>list</md-icon><span>Wishlist</span></router-link>
-        </md-list-item>
-      </md-list>
+      <md-toolbar class="vue-material-logo" md-theme="white">
+        <router-link exact to="/">
+          <img src="../assets/logo.png" alt="Vue">
+          <span>Vinyles</span>
+        </router-link>
+      </md-toolbar>
+      <div class="main-sidebar-links">
+        <md-list>
+          <md-list-item>
+            <router-link to="/vinyl-collection"><md-icon>album</md-icon><span>Vinyl Collection</span></router-link>
+          </md-list-item>
+          <md-list-item>
+            <router-link to="/wishlist"><md-icon>list</md-icon><span>Wishlist</span></router-link>
+          </md-list-item>
+        </md-list>
+      </div>
     </md-sidenav>
     <transition name="md-router" appear>
       <router-view></router-view>
@@ -19,12 +27,6 @@
 <script>
 export default {
   name: 'app',
-
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    }
-  },
 }
 </script>
 
@@ -55,6 +57,26 @@ export default {
       padding-left: $sizebar-size;
     }
   }
+  .vue-material-logo {
+    font-size: 24px;
+    a {
+      width: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      color: #353535 !important;
+      text-decoration: none !important;
+      &:hover {
+        color: inherit;
+        text-decoration: nonei !important;
+      }
+    }
+    img {
+      width: 160px;
+      margin-bottom: 16px;
+    }
+  }
   .main-sidebar.md-sidenav {
     .md-sidenav-content {
       width: $sizebar-size;
@@ -75,7 +97,7 @@ export default {
       }
     }
     .md-toolbar {
-      min-height: 172px;
+      min-height: 250px;
       border-bottom: 1px solid rgba(#000, .12);
     }
     .main-sidebar-links {

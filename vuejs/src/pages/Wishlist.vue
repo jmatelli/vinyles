@@ -1,23 +1,25 @@
 <template>
   <page-content page-title="Vinyles - Wishlist">
     <div class="main-content">
-      <md-layout md-flex="100">
-        <h2>Your Wishlist</h2>
-      </md-layout>
-      <md-layout v-if="wishlist.length" md-row>
-        list of vinyl records
-      </md-layout>
-      <md-layout v-else md-row>
+      <h2>Your Wishlist</h2>
+      <album-list v-if="wishlist.length" v-bind:list="wishlist"></album-list>
+      <div v-else>
         <p>No vinyl record in your wishlist yet, you can search for one by clicking here</p>
         <md-button class="md-raised md-primary" v-on:click="openSearch()">Search for records</md-button>
-      </md-layout>
+      </div>
     </div>
   </page-content>
 </template>
 
 <script>
+import AlbumList from '../components/AlbumList.vue'
+
 export default {
-  name: 'wishlist',
+  name: 'wishlist-page',
+
+  components: {
+    AlbumList,
+  },
 
   computed: {
     wishlist() {
@@ -27,6 +29,7 @@ export default {
 
   methods: {
     openSearch() {
+      this.$router.push('search')
       this.$store.commit('openSearch')
     },
   },
