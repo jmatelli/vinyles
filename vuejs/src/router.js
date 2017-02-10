@@ -3,33 +3,90 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import store from './store'
+
+import Login from './pages/Login.vue'
 import Vinyles from './pages/Vinyles.vue'
 import Vinyle from './pages/Vinyle.vue'
 import Wishlist from './pages/Wishlist.vue'
 import Search from './pages/Search.vue'
 
-export default new Router({
+const isAuth = (to, from, next) => {
+  auth.authUser()
+    .then(() => next())
+    .catch(() => next(false))
+}
+
+const homeRoute = {
+  path: '/',
+  redirect: '/vinyl-collection',
+}
+
+const loginRoute = {
+  path: '/login',
+  name: 'login',
+  component: Login
+}
+
+const logoutRoute = {
+  path: '/logout',
+  beforeEnter(to, from, next) {
+    store.dispatch(logout)
+      .then(() => this.push('/login'))
+      .catch(() => next(false))
+  }
+}
+
+const collectionRoute = {
+  path: '/vinyl-collection',
+  name: 'vinyles',
+  component: Vinyles,
+  children: [
+    { path: ':id', name: 'vinyle', component: Vinyle  },
+  ],
+  meta: {
+    auth: true,
+  },
+}
+
+const wishlistRoute = {
+  path: '/wishlist',
+  name: 'wishlist',
+  component: Wishlist,
+  meta: {
+    auth: true,
+  },
+}
+
+const searchRoute = {
+  path: '/search',
+  name: 'search',
+  component: Search,
+  meta: {
+    auth: true,
+  },
+}
+
+const router = new Router({
   mode: 'history',
   base: __dirname,
   routes: [
-    { path: '/', redirect: '/vinyl-collection' },
-    {
-      path: '/vinyl-collection',
-      name: 'vinyles',
-      component: Vinyles,
-      children: [
-        { path: ':id', name: 'vinyle', component: Vinyle  }
-      ]
-    },
-    {
-      path: '/wishlist',
-      name: 'wishlist',
-      component: Wishlist,
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: Search,
-    },
+    homeRoute,
+    loginRoute,
+    logoutRoute,
+    collectionRoute,
+    wishlistRoute,
+    searchRoute,
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !store.getters.isLoggedIn) {
+    console.log(`You can't access the ${to.name} route if you're not logged in`)
+    router.replace('/login')
+  } else {
+    next()
+  }
+})
+
+export default router

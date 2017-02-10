@@ -13,6 +13,11 @@
         <md-button v-on:click="addWishedVinyle">Add to wishlist</md-button>
       </md-card-actions>
     </md-card>
+
+    <md-snackbar ref="snackbar">
+      <span>{{ snackbarMessage  }}</span>
+      <md-button class="md-accent" md-theme="light-blue" @click="undo()">Undo</md-button>
+    </md-snackbar>
   </div>
 </template>
 
@@ -24,22 +29,25 @@
 
     data() {
       return {
-        isSearch: this.$route.name === 'search'
+        isSearch: this.$route.name === 'search',
+        snackbarMessage: ''
       }
     },
 
     methods: {
       addOwnedVinyle() {
+        this.snackbarMessage = 'Record added to collection'
+        this.$refs.snackbar.open()
+        return
         this.$store.commit('addOwnedVinyle', this.album)
       },
 
       addWishedVinyle() {
+        this.snackbarMessage = 'Record added to wishlist'
+        this.$refs.snackbar.open()
+        return
         this.$store.commit('addWishedVinyle', this.album)
       },
-    },
-
-    mounted() {
-      console.log(this.$route)
     },
   }
 </script>
