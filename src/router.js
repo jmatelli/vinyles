@@ -76,7 +76,7 @@ const searchRoute = {
 
 const router = new Router({
   mode: 'history',
-  base: window.location.href,
+  base: 'vinyles',
   routes: [
     homeRoute,
     loginRoute,
