@@ -75,7 +75,7 @@ const searchRoute = {
 }
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   base: 'vinyles',
   routes: [
     homeRoute,
