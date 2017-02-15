@@ -4,8 +4,7 @@
       <h2>Your Vinyl Records Collection</h2>
       <album-list v-if="vinyles.length" v-bind:list="vinyles"></album-list>
       <div v-else>
-        <p>No vinyl record in your collection yet, you can search for one by clicking here</p>
-        <md-button class="md-raised md-primary" v-on:click="openSearch()">Search for records</md-button>
+        <p>No vinyl record in your collection yet, you can search for one in the searchbar above</p>
       </div>
     </div>
   </page-content>
@@ -26,13 +25,6 @@ export default {
       return this.$store.state.vinyles
     },
   },
-
-  methods: {
-    openSearch() {
-      this.$router.push('search')
-      this.$store.commit('openSearch')
-    }
-  }
 }
 </script>
 

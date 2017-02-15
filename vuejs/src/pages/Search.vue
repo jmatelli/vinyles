@@ -20,11 +20,11 @@ export default {
 
   computed: {
     searchResult() {
-      return this.$store.state.searchResult
+      return this.$store.state.search.result
     },
 
     isSearching() {
-      return this.$store.state.isSearching
+      return this.$store.state.search.isSearching
     },
   },
 }

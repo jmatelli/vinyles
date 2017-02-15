@@ -1,15 +1,17 @@
-export const API_URL = 'http://api.discogs.com'
+const API_URL = 'http://api.discogs.com'
 
-export const API_TOKEN = 'wqGuPlsuLjmHvKJFDiRtVXQfQsFFXsQmHNVzQETg'
+const API_TOKEN = 'wqGuPlsuLjmHvKJFDiRtVXQfQsFFXsQmHNVzQETg'
 
-export const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyDBnsNWresFKu11LmT49iotnUz8XfrvOT0',
-  authDomain: 'vinyles-4b04e.firebaseapp.com',
-  databaseURL: 'https://vinyles-4b04e.firebaseio.com',
-  storageBucket: 'vinyles-4b04e.appspot.com',
-  messagingSenderId: '383821469303',
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyCrdQVOoZ1dolkAweUQc-wV18Vy_P0Q9DY',
+  authDomain: 'vinyles-5dc00.firebaseapp.com',
+  databaseURL: 'https://vinyles-5dc00.firebaseio.com',
+  storageBucket: 'vinyles-5dc00.appspot.com',
+  messagingSenderId: '305759742431',
 }
 
-export function requestBuilder(url) {
+function requestBuilder(url) {
   return url + '&token=' + API_TOKEN
 }
+
+export { API_URL, API_TOKEN, FIREBASE_CONFIG, requestBuilder }

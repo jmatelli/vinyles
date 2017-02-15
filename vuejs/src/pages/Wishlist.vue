@@ -4,8 +4,7 @@
       <h2>Your Wishlist</h2>
       <album-list v-if="wishlist.length" v-bind:list="wishlist"></album-list>
       <div v-else>
-        <p>No vinyl record in your wishlist yet, you can search for one by clicking here</p>
-        <md-button class="md-raised md-primary" v-on:click="openSearch()">Search for records</md-button>
+        <p>No vinyl record in your wishlist yet, you can search for one in the searchbar above</p>
       </div>
     </div>
   </page-content>

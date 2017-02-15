@@ -3,17 +3,44 @@
     <md-sidenav class="main-sidebar md-left md-fixed">
       <md-toolbar class="vue-material-logo" md-theme="white">
         <router-link exact to="/">
-          <img src="../assets/logo.png" alt="Vue">
-          <span>Vinyles</span>
+          <img src="./assets/img/logo.png" alt="Vue">
         </router-link>
       </md-toolbar>
       <div class="main-sidebar-links">
         <md-list>
-          <md-list-item>
-            <router-link to="/vinyl-collection"><md-icon>album</md-icon><span>Vinyl Collection</span></router-link>
+          <md-list-item v-if="isLoggedIn">
+            <router-link to="/vinyl-collection">
+              <md-icon>album</md-icon>
+              <md-tooltip md-direction="right">Vinyl Collection</md-tooltip>
+            </router-link>
           </md-list-item>
-          <md-list-item>
-            <router-link to="/wishlist"><md-icon>list</md-icon><span>Wishlist</span></router-link>
+
+          <md-list-item v-if="isLoggedIn">
+            <router-link to="/wishlist">
+              <md-icon>list</md-icon>
+              <md-tooltip md-direction="right">Wishlist</md-tooltip>
+            </router-link>
+          </md-list-item>
+
+          <md-list-item v-if="isLoggedIn">
+            <router-link to="/logout">
+              <md-icon>power_settings_new</md-icon>
+              <md-tooltip md-direction="right">Log out</md-tooltip>
+            </router-link>
+          </md-list-item>
+
+          <md-list-item v-if="!isLoggedIn">
+            <router-link to="/login">
+              <md-icon>exit_to_app</md-icon>
+              <md-tooltip md-direction="right">Log in</md-tooltip>
+            </router-link>
+          </md-list-item>
+
+          <md-list-item v-if="!isLoggedIn">
+            <router-link to="/signup">
+              <md-icon>person_add</md-icon>
+              <md-tooltip md-direction="right">Sign up</md-tooltip>
+            </router-link>
           </md-list-item>
         </md-list>
       </div>
@@ -27,12 +54,17 @@
 <script>
 export default {
   name: 'app',
+
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    }
+  }
 }
 </script>
 
 <style lang="scss">
   @import '../node_modules/vue-material/src/core/stylesheets/variables.scss';
-  $sizebar-size: 280px;
   [v-cloak] {
     display: none;
   }
@@ -42,20 +74,19 @@ export default {
     overflow: hidden;
   }
   body {
+    background-color: #f0f0f0!important;
     display: flex;
   }
   #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #353535;
     min-height: 100%;
     display: flex;
     flex-flow: column nowrap;
     flex: 1;
     transition: $swift-ease-out;
-    @media (min-width: 1281px) {
-      padding-left: $sizebar-size;
-    }
+    padding-left: 64px;
   }
   .vue-material-logo {
     font-size: 24px;
@@ -73,40 +104,43 @@ export default {
       }
     }
     img {
-      width: 160px;
-      margin-bottom: 16px;
+      width: 32px;
     }
   }
   .main-sidebar.md-sidenav {
     .md-sidenav-content {
-      width: $sizebar-size;
+      background-color: #353535!important;
+      color: white!important;
+      width: 64px;
       display: flex;
       flex-flow: column;
       overflow: hidden;
-      @media (min-width: 1281px) {
-        top: 0;
-        pointer-events: auto;
-        transform: translate3d(0, 0, 0);
-        box-shadow: $material-shadow-2dp;
-      }
-    }
-    .md-backdrop {
-      @media (min-width: 1281px) {
-        opacity: 0;
-        pointer-events: none;
-      }
+      top: 0;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0);
     }
     .md-toolbar {
-      min-height: 250px;
+      min-height: 64px;
       border-bottom: 1px solid rgba(#000, .12);
     }
     .main-sidebar-links {
       overflow: auto;
       flex: 1;
-      .md-inset .md-list-item-container {
-        padding-left: 36px;
+      .md-list {
+        padding: 0!important;
+      }
+      .md-button {
+        min-width: initial;
+        text-align: center;
+      }
+      .md-icon {
+        margin: 0!important;
+        color: white;
       }
       .md-list-item-container {
+        padding: 0 15px!important;
+        background-color: #353535!important;
+        color: white!important;
         font-size: 14px;
         font-weight: 500;
       }
@@ -116,10 +150,17 @@ export default {
     padding: 16px;
     flex: 1;
     overflow: auto;
-    background-color: #fff;
     transform: translate3D(0, 0, 0);
     transition: $swift-ease-out;
     transition-delay: .2s;
+    &.center-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .md-card {
+        width: 500px;
+      }
+    }
   }
   .md-router-enter,
   .md-router-leave {
@@ -127,9 +168,7 @@ export default {
     top: 0;
     right: 0;
     left: 0;
-    @media (min-width: 1281px) {
-      left: $sizebar-size;
-    }
+    left: 64px;
     .main-content {
       opacity: 0;
       overflow: hidden;
@@ -147,17 +186,4 @@ export default {
       transform: translate3D(0, 10%, 0);
     }
   }
-  .phone-viewport {
-    width: 360px;
-    height: 540px;
-    margin-right: 16px;
-    display: inline-block;
-    position: relative;
-    overflow: hidden;
-    background-color: #fff;
-    border: 1px solid rgba(#000, .12);
-  }
-</style>
-
-<style>
 </style>
