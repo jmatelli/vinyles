@@ -76,7 +76,7 @@ const searchRoute = {
 
 const router = new Router({
   mode: 'history',
-  base: __dirname,
+  base: window.location.href,
   routes: [
     homeRoute,
     loginRoute,
