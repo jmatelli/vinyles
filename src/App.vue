@@ -3,7 +3,7 @@
     <md-sidenav class="main-sidebar md-left md-fixed">
       <md-toolbar class="vue-material-logo" md-theme="white">
         <router-link exact to="/">
-          <img src="./assets/img/logo.png" alt="Vue">
+          <img src="vinyles/dist/logo.png" alt="Vue">
         </router-link>
       </md-toolbar>
       <div class="main-sidebar-links">
