@@ -28,5 +28,12 @@ new Vue({
   store,
   router,
   firebase: {},
+  mounted() {
+    firebase
+      .auth()
+      .onAuthStateChanged(user => {
+        store.dispatch('updateUser', user)
+      })
+  },
   render: h => h(App)
 })

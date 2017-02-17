@@ -5,14 +5,20 @@
         <md-whiteframe md-tag="md-toolbar" md-elevation="0">
           <h2 class="md-title" style="flex: 1">{{ pageTitle }}</h2>
 
-          <md-avatar v-if="isLoggedIn">
-            <img :src="user.avatar" alt=""/>
-          </md-avatar>
+          <md-menu v-if="isLoggedIn" md-align-trigger md-direction="bottom left" ref="menu">
+            <md-avatar md-menu-trigger>
+              <img :src="user.avatar" alt=""/>
+            </md-avatar>
+
+            <md-menu-content>
+              <md-menu-item @selected="goToProfile()">Profile</md-menu-item>
+            </md-menu-content>
+          </md-menu>
         </md-whiteframe>
       </md-theme>
     </div>
 
-    <div class="search-navbar" v-if="isLoggedIn">
+    <div class="search-navbar" v-if="isLoggedIn && user.emailVerified">
       <md-theme md-name="white">
         <md-whiteframe md-tag="md-toolbar" md-elevation="2">
           <md-button class="md-icon-button">
@@ -20,10 +26,10 @@
           </md-button>
 
           <md-input-container md-inline style="flex: 1">
-            <md-input v-model="searchRequest" placeholder="Search a record..." type="search"></md-input>
+            <input v-model="searchRequest" placeholder="Search a record..." type="search">
           </md-input-container>
 
-          <md-button class="md-icon-button" v-on:click="clearSearch()">
+          <md-button class="md-icon-button" @click="clearSearch()">
             <md-icon>close</md-icon>
           </md-button>
         </md-whiteframe>
@@ -70,6 +76,10 @@
     },
 
     methods: {
+      goToProfile() {
+        this.$router.push('profile')
+      },
+
       clearSearch() {
         this.searchRequest = ''
       },
@@ -79,13 +89,13 @@
           resource
             .get(requestBuilder('/database/search?type=release&format=vinyl&release_title=' + this.searchRequest))
             .then(res => {
-              this.$store.state.searchResult = res.data.results
+              this.$store.state.search.results = res.data.results
             })
             .catch(err => {
               throw new Error('Couldn\'t find what you\'re looking for')
             })
         } else {
-          this.$store.state.searchResult = []
+          this.$store.state.search.results = []
         }
       }, 500),
     },
@@ -135,5 +145,8 @@
   .main-header {
     z-index: 2;
     color: #fff !important;
+  }
+  .md-avatar {
+    cursor: pointer;
   }
 </style>

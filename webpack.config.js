@@ -27,18 +27,18 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
-        include: /(node_modules|src)/
+        include: /(node_modules|src)/,
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: 'assets/img/[name].[ext]?[hash]'
         }
       }
     ]

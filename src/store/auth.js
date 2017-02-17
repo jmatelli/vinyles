@@ -2,11 +2,21 @@ import * as firebase from 'firebase'
 import { Promise } from 'es6-promise'
 import _ from 'lodash'
 import gravatar from '../utils/avatar'
+import router from '../router'
 
 const USER_STORAGE_KEY = 'user'
 const LOGIN = 'LOGIN'
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGOUT = 'LOGOUT'
+const UPDATE_USER = ' UPDATE_USER'
+
+export const pluginAuth = store => {
+  store.subscribe((mutation, state) => {
+    if (mutation.type === UPDATE_USER && mutation.payload) {
+      window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(mutation.payload))
+    }
+  })
+}
 
 export const auth = {
   state: {
@@ -27,6 +37,13 @@ export const auth = {
     [LOGOUT](state) {
       state.isLoggedIn = false
     },
+
+    [UPDATE_USER](state, user) {
+      if (user) {
+        state.user = user
+        state.user.avatar = gravatar(user.email)
+      }
+    }
   },
 
   getters: {
@@ -47,9 +64,7 @@ export const auth = {
           .auth()
           .signInWithEmailAndPassword(email, password)
           .then((user) => {
-            state.user = user.providerData[0]
-            state.user.avatar = gravatar(state.user.email)
-            window.localStorage.setItem('user', JSON.stringify(state.user))
+            commit(UPDATE_USER, user)
             commit(LOGIN_SUCCESS)
             resolve()
           })
@@ -78,10 +93,35 @@ export const auth = {
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then((user) => {
-            state.user = user.providerData[0]
-            state.user.avatar = gravatar(state.user.email)
-            window.localStorage.setItem('user', JSON.stringify(state.user))
+            commit(UPDATE_USER, user)
             commit(LOGIN_SUCCESS)
+            return user.sendEmailVerification()
+          })
+          .then((user) => {
+            resolve()
+            router.push('profile')
+          })
+          .catch(reject)
+      })
+    },
+
+    updateUser({ commit }, user) {
+      commit(UPDATE_USER, user)
+    },
+
+    verifyEmail({ rootState }) {
+      return new Promise((resolve, reject) => {
+        let mode
+        switch (rootState.route.query.mode) {
+          case 'verifyEmail':
+            mode = 'applyActionCode'
+            break;
+        }
+        return firebase
+          .auth()
+          [mode](rootState.route.query.oobCode)
+          .then((res) => {
+            router.push('profile')
             resolve()
           })
           .catch(reject)

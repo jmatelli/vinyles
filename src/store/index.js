@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Vuex Modules
-import { auth } from './auth'
+import { auth, pluginAuth } from './auth'
 import { search } from './search'
 
 Vue.use(Vuex)
@@ -34,4 +34,6 @@ export default new Vuex.Store({
     deleteWishedVinyle (state, vinyle) {
     },
   },
+
+  plugins: [pluginAuth],
 })
