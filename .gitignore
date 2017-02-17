@@ -5,3 +5,4 @@ npm-debug.log
 .firebaserc
 database.rules.json
 firebase.json
+src/_config.js

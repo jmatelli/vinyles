@@ -1,14 +1,10 @@
+import { discogs, firebase } from './_config'
+
 const API_URL = 'http://api.discogs.com'
 
-const API_TOKEN = 'wqGuPlsuLjmHvKJFDiRtVXQfQsFFXsQmHNVzQETg'
+const API_TOKEN = discogs.token
 
-const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyCrdQVOoZ1dolkAweUQc-wV18Vy_P0Q9DY',
-  authDomain: 'vinyles-5dc00.firebaseapp.com',
-  databaseURL: 'https://vinyles-5dc00.firebaseio.com',
-  storageBucket: 'vinyles-5dc00.appspot.com',
-  messagingSenderId: '305759742431',
-}
+const FIREBASE_CONFIG = firebase
 
 function requestBuilder(url) {
   return url + '&token=' + API_TOKEN
