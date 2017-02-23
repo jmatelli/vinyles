@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Profile">
+  <page-content page-title="Profile">
     <div class="main-content" v-if="user">
       <md-card v-if="!user.emailVerified" class="success">
         <md-card-content>
@@ -9,6 +9,9 @@
       </md-card>
       <md-card>
         <md-card-header>
+          <md-card-header-text>
+            <div class="md-title">{{ user.email }}</div>
+          </md-card-header-text>
           <md-card-media md-big>
             <img :src="user.avatar" alt=""/>
           </md-card-media>

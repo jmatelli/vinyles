@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Wishlist">
+  <page-content page-title="Wishlist">
     <div class="main-content">
       <h2>Your Wishlist</h2>
       <album-list v-if="wishlist.length" v-bind:list="wishlist"></album-list>

@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Sign Up">
+  <page-content page-title="Sign Up">
     <div class="main-content center-content">
       <md-card>
         <md-card-header>
@@ -32,7 +32,7 @@
         </md-card-content>
 
         <md-card-actions>
-          <md-button @click="signup()">Sign up</md-button>
+          <spinner-button :is-disabled="signingUp" :action="signup"></spinner-button>
         </md-card-actions>
       </md-card>
     </div>
@@ -40,8 +40,14 @@
 </template>
 
 <script>
+  import SpinnerButton from '../components/SpinnerButton.vue'
+
   export default {
     name: 'signup',
+
+    components: {
+      SpinnerButton,
+    },
 
     data() {
       return {
@@ -51,6 +57,7 @@
         errEmail: '',
         errPassword: '',
         errConfirm: '',
+        signingUp: false,
       }
     },
 
@@ -76,17 +83,22 @@
 
     methods: {
       signup() {
+        if (this.signingUp) {
+          return
+        }
         if (this.password !== this.confirmPassword) {
           this.errConfirm = `The passwords don't match`
           return
         } else {
           this.errConfirm = ''
           if (this.password && this.confirmPassword) {
+            this.signingUp = true
             this.$store.dispatch('signup', {
               email: this.email,
               password: this.password
             })
               .catch(err => {
+                this.signingUp = false
                 if (err.code === 'auth/invalid-email' || err.code === 'auth/email-already-in-use') {
                   this.errEmail = err.message
                 }

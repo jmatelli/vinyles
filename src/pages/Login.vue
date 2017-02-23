@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Log In">
+  <page-content page-title="Log In">
     <div class="main-content center-content">
       <md-card>
         <md-card-header>
@@ -25,7 +25,7 @@
         </md-card-content>
 
         <md-card-actions>
-          <md-button @click="login()">Log In</md-button>
+          <spinner-button :is-disabled="loggingIn" :action="login"></spinner-button>
         </md-card-actions>
       </md-card>
     </div>
@@ -33,13 +33,22 @@
 </template>
 
 <script>
+  import SpinnerButton from '../components/SpinnerButton.vue'
+
   export default {
+    name: 'login',
+
+    components: {
+      SpinnerButton,
+    },
+
     data() {
       return {
         email: '',
         password: '',
         errEmail: '',
         errPassword: '',
+        loggingIn: false,
       }
     },
 
@@ -59,12 +68,20 @@
 
     methods: {
       login() {
+        if (this.loggingIn) {
+          return
+        }
+        this.loggingIn = true
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password,
         })
-          .then(() => this.$router.push('/'))
+          .then(() => {
+            this.loggingIn = false
+            this.$router.push('/')
+          })
           .catch(err => {
+            this.loggingIn = false
             if (err.code === 'auth/invalid-email') {
               this.errEmail = err.message
             }

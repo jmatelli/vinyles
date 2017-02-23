@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Collection">
+  <page-content page-title="Collection">
     <div class="main-content">
       <h2>Your Vinyl Records Collection</h2>
       <album-list v-if="vinyles.length" v-bind:list="vinyles"></album-list>

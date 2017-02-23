@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Not Found">
+  <page-content page-title="Not Found">
     <div class="main-content center-content">
       <md-card>
         <md-card-header>

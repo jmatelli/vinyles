@@ -3,7 +3,10 @@
     <div>
       <md-theme md-name="default">
         <md-whiteframe md-tag="md-toolbar" md-elevation="0">
-          <h2 class="md-title" style="flex: 1">{{ pageTitle }}</h2>
+          <h2 class="md-title" style="flex: 1">
+            <img src="../assets/img/vinyles.png" alt=""/>
+            {{ pageTitle }}
+          </h2>
 
           <md-menu v-if="isLoggedIn" md-align-trigger md-direction="bottom left" ref="menu">
             <md-avatar md-menu-trigger>
@@ -102,7 +105,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   input[type="search"]::-webkit-search-decoration,
   input[type="search"]::-webkit-search-cancel-button,
   input[type="search"]::-webkit-search-results-button,
@@ -141,10 +144,17 @@
   }
   .search-navbar {
     color: #353535;
+    background-color: white;
   }
   .main-header {
     z-index: 2;
     color: #fff !important;
+  }
+  .md-title {
+    img {
+      max-height: 30px;
+      margin-right: 20px;
+    }
   }
   .md-avatar {
     cursor: pointer;

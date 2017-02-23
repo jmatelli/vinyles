@@ -1,5 +1,5 @@
 <template>
-  <page-content page-title="Vinyles - Verify Email" v-if="errActionCode">
+  <page-content page-title="Verify Email" v-if="errActionCode">
     <div class="main-content">
       <md-card class="md-warn">
         <md-card-content>
@@ -33,7 +33,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .main-content {
     display: flex;
     flex-direction: column;
